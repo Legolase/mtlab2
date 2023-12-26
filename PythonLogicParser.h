@@ -25,9 +25,9 @@ private:
   Tree::Ptr parseN();
   Tree::Ptr parseT_();
   Tree::Ptr parseI();
-  Tree::Ptr parseI_suff();
-  Tree::Ptr parseA();
   Tree::Ptr parseI_();
+  Tree::Ptr parseM();
+  Tree::Ptr parseM_();
 };
 
 #endif // LAB2_PYTHONLOGICPARSER_H

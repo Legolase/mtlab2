@@ -11,11 +11,15 @@ void test2() {
 }
 
 void test3() {
-  auto result = PythonLogicParser("a and bnot in a").parse();
+  auto result = PythonLogicParser("a and b not in a").parse();
 }
 
 void test4() {
   auto result = PythonLogicParser("a and bnot in a").parse();
+}
+
+void test5() {
+  auto result = PythonLogicParser("a and (b or s)").parse();
 }
 
 bool good_tests() {
@@ -33,11 +37,35 @@ bool good_tests() {
     try {
       (gtest[i])();
       ++count;
-      std::cout << "Success pass test" << i << '\n';
+      std::cout << "Success pass test" << i + 1 << '\n';
+    } catch(std::exception& e) {
+      std::cout << "test" << i + 1 << " mustn't fail -> " << e.what() << '\n';
     } catch(...) {
-      std::cout << "test" << i << " mustn't fail\n";
+      std::cout << "test" << i + 1 << " mustn't fail\n";
     }
   }
+
+  return count == size;
+}
+
+void test6() {
+  auto result = PythonLogicParser("not 4").parse();
+}
+
+void test7() {
+  auto result = PythonLogicParser("b not in in a").parse();
+}
+
+void test8() {
+  auto result = PythonLogicParser("(a and b) not in a").parse();
+}
+
+void test9() {
+  auto result = PythonLogicParser("abb and bnot in a").parse();
+}
+
+void test10() {
+  auto result = PythonLogicParser("s)").parse();
 }
 
 bool fail_test() {
@@ -55,9 +83,9 @@ bool fail_test() {
     try {
       (ftest[i])();
       ++count;
-      std::cout << "test" << i << " must fail\n";
+      std::cout << "test" << i + 6 << " must fail\n";
     } catch(...) {
-      std::cout << "Success fail test" << i << '\n';
+      std::cout << "Success fail test" << i + 6 << '\n';
     }
   }
 
@@ -65,5 +93,6 @@ bool fail_test() {
 }
 
 int main() {
-
+  good_tests();
+  fail_test();
 }
